@@ -68,7 +68,7 @@ def main():
 
     frames = []
     for name, loader in (("nasa", load_nasa_pcoe), ("calce", load_calce_cs2)):
-        cfg = HIPIFConfig(chemistry=CHEM[name], data_dir=args.data_dir)
+        cfg = HIPIFConfig(chemistry=CHEM[name], data_dir=Path(args.data_dir))
         df = loader(cfg)
         q_nom = cfg.chem.Q_nom
         d = audit_dataset(name, df, q_nom)
@@ -78,7 +78,7 @@ def main():
         print(f"cell-level mean MAE  unclipped {d.mae_unclipped.mean():.2f}  "
               f"clipped {d.mae_clipped.mean():.2f}  "
               f"mono-smoothed {d.mae_mono_smoothed.mean():.2f} pp   "
-              f"corr range [{d.corr.min():.4f}, {d.corr.max():.4f}]")
+              f"corr range [{d['corr'].min():.4f}, {d['corr'].max():.4f}]")
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
