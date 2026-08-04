@@ -1,0 +1,67 @@
+# Chemistry parameter registry (WP3 / P3 / P8)
+# Single source of truth for constraint and thermal parameters.
+# Every entry carries units and provenance. NO dataset-name branching in code:
+# code looks up by `chemistry` key only.
+#
+# k0_pp_per_cycle: Arrhenius prefactor of the kinetic bound I2, i.e. the
+#   maximum admissible |dSoH/dcycle| at T_ref=298.15 K, in percentage points
+#   per equivalent full cycle. Values are literature-derived envelopes
+#   (calendar+cycle fade upper bounds); they may be refined LABEL-FREE on
+#   adaptation cells via hipif.priors.estimate_k0_labelfree (provenance is
+#   then recorded in the run manifest as "labelfree_envelope").
+# E_a_J_per_mol: activation energy of capacity fade.
+# Q_nom_Ah: nameplate capacity of the specific cells in each dataset.
+# thermal: lumped model T_phys = T_amb + I_rms^2 * R_int / hA  (steady state).
+
+defaults:
+  T_ref_K: 298.15
+  soh_min_pct: 50.0
+  soh_max_pct: 100.0
+  mono_eps_pp: 0.5          # I1 noise allowance [pp]; capacity-test repeatability
+  persistence_window: 3      # consecutive violating samples before rejection
+  energy_tol: 0.05           # I4 relative tolerance on single-discharge window
+
+chemistries:
+  LFP:            # source: eVTOL dataset (Bills et al. 2023), Sony-Murata LFP
+    E_a_J_per_mol: 50000.0
+    E_a_source: "Kucinskis et al. 2022, J. Power Sources 549:232129 (LFP cycle aging 48-55 kJ/mol)"
+    k0_pp_per_cycle: 0.25
+    k0_source: "envelope over eVTOL source fade rates (max per-cell LS slope x1.5)"
+    Q_nom_Ah: 3.0
+    ambient_C: 23.0
+    ambient_source: "eVTOL thermal chamber setpoint (dataset paper)"
+    thermal: {R_int_ohm: 0.030, hA_W_per_K: 0.9, Cth_J_per_K: 60.0}
+    thermal_source: "Bills et al. 2023 cell datasheet + lumped fit on source telemetry"
+
+  Li-ion:         # target: NASA PCoE B0005/6/7/18 (18650 NCA-type, 2.0 Ah)
+    E_a_J_per_mol: 60000.0
+    E_a_source: "Kucinskis et al. 2022 (NCA 55-65 kJ/mol); nominal 60"
+    k0_pp_per_cycle: 0.60
+    k0_source: "literature envelope for accelerated NASA PCoE aging (~0.2 pp/cyc mean, x3 headroom for regeneration transients)"
+    Q_nom_Ah: 2.0
+    ambient_C: 24.0
+    ambient_source: "NASA PCoE metadata: ambient_temperature=24 in .mat records"
+    thermal: {R_int_ohm: 0.060, hA_W_per_K: 0.5, Cth_J_per_K: 45.0}
+    thermal_source: "18650 typical DCIR + free-convection estimate"
+
+  LCO:            # target: CALCE CS2 (prismatic LiCoO2, 1.1 Ah)
+    E_a_J_per_mol: 55000.0
+    E_a_source: "Kucinskis et al. 2022 (LCO 50-60 kJ/mol); nominal 55"
+    k0_pp_per_cycle: 0.35
+    k0_source: "literature envelope for 0.5C room-temperature LCO cycling"
+    Q_nom_Ah: 1.1
+    ambient_C: 25.0
+    ambient_source: "CALCE CS2 documentation: room temperature cycling (~25 C)"
+    thermal: {R_int_ohm: 0.120, hA_W_per_K: 0.4, Cth_J_per_K: 30.0}
+    thermal_source: "prismatic pouch typical DCIR + free-convection estimate"
+
+  NMC:            # optional robustness target: SNL (LG 18650HG2, 3.0 Ah)
+    E_a_J_per_mol: 58000.0
+    E_a_source: "Preger et al. 2020 / Wittman et al. 2023 temperature-dependent NMC fade"
+    k0_pp_per_cycle: 0.30
+    k0_source: "literature envelope; SNL narrow-range fade"
+    Q_nom_Ah: 3.0
+    ambient_C: 25.0
+    ambient_source: "SNL chamber setpoint (dataset per-condition; 25 C arm)"
+    thermal: {R_int_ohm: 0.025, hA_W_per_K: 0.5, Cth_J_per_K: 48.0}
+    thermal_source: "18650HG2 datasheet DCIR + free-convection estimate"

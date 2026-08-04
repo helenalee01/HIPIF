@@ -1,0 +1,2 @@
+method_a,method_b,metric,delta_point,delta_ci_lo,delta_ci_hi,sign_test_p,cliff_delta,n_cells,n_pairs,a_better_ci_excludes_0,dataset
+hipif,direct,mae,-3.2000980074421603,-6.018296459580907,-0.9287758295579965,0.125,1.0,4,8,True,nasa

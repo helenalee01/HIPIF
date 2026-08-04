@@ -1,0 +1,191 @@
+{
+  "run_id": "backbone",
+  "git": "",
+  "python": "3.10.20",
+  "torch": "2.5.1+cu121",
+  "device": "cuda",
+  "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.39",
+  "stages": [
+    "e8"
+  ],
+  "seeds": [
+    42,
+    123,
+    2024,
+    7,
+    99,
+    256,
+    1234,
+    2718
+  ],
+  "quick": false,
+  "config": {
+    "seed": 42,
+    "input_dim": 7,
+    "width": 118,
+    "temp_residual_hidden": 32,
+    "uncertainty_hidden": 32,
+    "lr": 0.0005,
+    "weight_decay": 0.0001,
+    "epochs_pretrain": 300,
+    "epochs_refine": 40,
+    "batch_size": 64,
+    "lambda_phys": 0.6,
+    "lambda_temp": 0.5,
+    "lambda_residual_reg": 0.1,
+    "lambda_target": 1.0,
+    "lambda_source": 0.5,
+    "ema_momentum": 0.9,
+    "n_refine_iters": 14,
+    "drift_eps": 0.0002,
+    "chemistry": "LFP",
+    "active_constraints": [
+      "I1",
+      "I2",
+      "I3",
+      "I4"
+    ],
+    "Ea_override": null,
+    "k0_override": null,
+    "qnom_override": null,
+    "device": "cuda",
+    "base_dir": ".",
+    "data_dir": "Data",
+    "results_dir": "results",
+    "chem": {
+      "chemistry": "LFP",
+      "E_a_J_per_mol": 50000.0,
+      "k0_pp_per_cycle": 0.25,
+      "Q_nom_Ah": 3.0,
+      "ambient_C": 23.0,
+      "R_int_ohm": 0.03,
+      "hA_W_per_K": 0.9,
+      "Cth_J_per_K": 60.0,
+      "mono_eps_pp": 0.5,
+      "persistence_window": 3,
+      "energy_tol": 0.05,
+      "provenance": {
+        "E_a_source": "Kucinskis et al. 2022, J. Power Sources 549:232129 (LFP cycle aging 48-55 kJ/mol)",
+        "k0_source": "envelope over eVTOL source fade rates (max per-cell LS slope x1.5)",
+        "ambient_source": "eVTOL thermal chamber setpoint (dataset paper)",
+        "thermal_source": "Bills et al. 2023 cell datasheet + lumped fit on source telemetry",
+        "_ovr": [
+          null,
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "feature_audit": {
+    "source": {
+      "role": "source_lab",
+      "model_features": [
+        "V_mean",
+        "V_min",
+        "V_max",
+        "I_mean",
+        "I_std",
+        "I_abs_mean",
+        "cycle_log"
+      ],
+      "constraint_inputs": [
+        "Ah_cycle",
+        "t_cycle_s",
+        "I_rms"
+      ],
+      "forbidden_columns_present_in_frame": [
+        "SoH",
+        "T_max",
+        "T_mean"
+      ],
+      "note": "forbidden columns may exist in the loaded frame for post-hoc evaluation, but assert_no_forbidden() blocks them from the model/constraint path when role='target'",
+      "n_rows": 889,
+      "cells": [
+        "VAH01",
+        "VAH05",
+        "VAH07",
+        "VAH10",
+        "VAH11",
+        "VAH12",
+        "VAH13"
+      ]
+    },
+    "nasa": {
+      "role": "target",
+      "model_features": [
+        "V_mean",
+        "V_min",
+        "V_max",
+        "I_mean",
+        "I_std",
+        "I_abs_mean",
+        "cycle_log"
+      ],
+      "constraint_inputs": [
+        "Ah_cycle",
+        "t_cycle_s",
+        "I_rms"
+      ],
+      "forbidden_columns_present_in_frame": [
+        "SoH",
+        "T_max",
+        "T_mean"
+      ],
+      "note": "forbidden columns may exist in the loaded frame for post-hoc evaluation, but assert_no_forbidden() blocks them from the model/constraint path when role='target'",
+      "n_rows": 636,
+      "cells": [
+        "B0005",
+        "B0006",
+        "B0007",
+        "B0018"
+      ]
+    },
+    "calce": {
+      "role": "target",
+      "model_features": [
+        "V_mean",
+        "V_min",
+        "V_max",
+        "I_mean",
+        "I_std",
+        "I_abs_mean",
+        "cycle_log"
+      ],
+      "constraint_inputs": [
+        "Ah_cycle",
+        "t_cycle_s",
+        "I_rms"
+      ],
+      "forbidden_columns_present_in_frame": [
+        "SoH",
+        "T_max",
+        "T_mean",
+        "capacity",
+        "cycle_norm"
+      ],
+      "note": "forbidden columns may exist in the loaded frame for post-hoc evaluation, but assert_no_forbidden() blocks them from the model/constraint path when role='target'",
+      "n_rows": 5659,
+      "cells": [
+        "CS2_33",
+        "CS2_34",
+        "CS2_35",
+        "CS2_36",
+        "CS2_37",
+        "CS2_38"
+      ]
+    }
+  },
+  "data_checksums": {
+    "B0006.mat": "755e2b4879bcdcde",
+    "B0018.mat": "66a75c83e212ca86",
+    "B0005.mat": "51132172582f1d34",
+    "B0007.mat": "a39e225217f4154f",
+    "calce_cs2_cycles.csv": "e0e9ce19a24948e2",
+    "VAH01.csv": "642f3e2bec6cf223",
+    "VAH01_impedance.csv": "f92a2e6b141d7328",
+    "VAH02_impedance.csv": "54f0854f94b745d4"
+  },
+  "start": "2026-07-31 07:56:03",
+  "end": "2026-07-31 08:00:08"
+}

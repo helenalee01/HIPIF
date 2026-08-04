@@ -1,0 +1,9 @@
+stage,dataset,method,mae_mean,mae_std,rmse_mean,rmse_std,r2_mean,r2_std,raw_pvr_mean,raw_pvr_std
+e8,calce,GRU_direct,16.5784,1.7649,18.7043,1.7844,-0.3478,0.3155,68.6576,7.155
+e8,calce,GRU_direct_proj,5.3104,0.8884,7.0403,1.2699,0.8118,0.0499,68.6576,7.155
+e8,calce,Transformer_direct,17.4882,1.6544,19.4859,1.7636,-0.4648,0.3361,71.2424,4.7934
+e8,calce,Transformer_direct_proj,5.1067,0.8086,6.5857,1.1086,0.8368,0.0334,71.2424,4.7934
+e8,nasa,GRU_direct,16.8273,4.9681,18.334,5.3351,-3.474,2.6951,29.3121,35.5852
+e8,nasa,GRU_direct_proj,16.624,4.6944,18.1285,5.1005,-3.3405,2.5239,29.3121,35.5852
+e8,nasa,Transformer_direct,6.7686,3.2701,7.6369,3.3037,0.1691,0.8456,12.6894,15.3301
+e8,nasa,Transformer_direct_proj,6.5849,3.4834,7.4006,3.5257,0.1926,0.8681,12.6894,15.3301

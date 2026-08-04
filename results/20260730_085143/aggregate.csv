@@ -1,0 +1,3 @@
+stage,dataset,method,mae_mean,mae_std,rmse_mean,rmse_std,r2_mean,r2_std,mae_raw_mean,mae_raw_std,raw_pvr_mean,raw_pvr_std,proj_pvr_mean,proj_pvr_std,accept_rate_mean,accept_rate_std,k0_labelfree_mean,k0_labelfree_std,n_refine_iters_mean,n_refine_iters_std
+e1,nasa,direct,7.1367,2.6902,8.2256,3.016,0.1365,0.6543,7.1367,2.6902,52.4283,36.0316,,,,,,,,
+e3,nasa,hipif,3.9366,2.0267,4.604,2.506,0.71,0.285,6.3665,2.2857,42.1943,36.177,0.0,0.0,44.8451,33.4699,0.6,0.0,5.0,0.0

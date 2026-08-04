@@ -1,0 +1,6 @@
+stage,dataset,method,mae_mean,mae_std,rmse_mean,rmse_std,r2_mean,r2_std
+e0,evtol,CoulombCount,6.9887,2.9944,16.8153,3.8258,0.0007,0.1154
+e0,evtol,GRU,4.4283,3.62,7.9171,5.8641,0.6481,0.3968
+e0,evtol,HIPIF_lab,8.1343,9.9071,12.1227,10.3335,-0.4224,2.973
+e0,evtol,LSTM,4.5397,3.6169,7.3364,5.7477,0.6397,0.4732
+e0,evtol,Transformer,4.5052,5.2335,7.8052,6.8219,0.5798,0.6358

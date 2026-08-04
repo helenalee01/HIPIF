@@ -1,0 +1,13 @@
+Data/
+legacy/
+paper/
+docs/
+__pycache__/
+*.pyc
+*.log
+*.mat
+REDESIGN_AND_GUIDE_KR.md
+RUN_GUIDE_KR.md
+RUN_ABLATION.md
+snl_nmc_config.py
+scripts/prepare_field_manifest.py
